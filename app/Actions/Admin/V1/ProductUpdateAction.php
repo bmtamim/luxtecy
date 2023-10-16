@@ -23,7 +23,7 @@ class ProductUpdateAction
 
             return jsonResponseFormat(true, new ProductResource($product), __('Product Updated!'));
         } catch (\Exception $exception) {
-            return jsonResponseFormat(false, null, $exception->getMessage(), 401);
+            return jsonResponseFormat(false, null, $exception->getMessage(), 500);
         }
     }
 }

@@ -70,7 +70,7 @@ return [
     |
     */
 
-    'timezone' => 'UTC',
+    'timezone' => 'Asia/Dhaka',
 
     /*
     |--------------------------------------------------------------------------
@@ -187,6 +187,6 @@ return [
     ])->toArray(),
 
     //Custom
-    'date_format'       => '',
+    'date_format'       => 'd/m/Y H:i',
     'date_format_human' => 'd F, Y h:i a'
 ];

@@ -17,7 +17,7 @@ class ProductController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index(Request $request)
+    public function index(Request $request): JsonResponse
     {
         $products = Product::query()->with(['categories'])->latest()->paginate(10);
 
@@ -55,7 +55,7 @@ class ProductController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Product $product, DeleteProductAction $action)
+    public function destroy(Product $product, DeleteProductAction $action): JsonResponse
     {
         return $action($product);
     }

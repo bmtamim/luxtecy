@@ -18,7 +18,7 @@ class DeleteProductAction
 
             return jsonResponseFormat(true, null, __('Product Deleted!'));
         } catch (\Exception $exception) {
-            return jsonResponseFormat(false, null, $exception->getMessage(), 401);
+            return jsonResponseFormat(false, null, $exception->getMessage(), 500);
         }
     }
 }
