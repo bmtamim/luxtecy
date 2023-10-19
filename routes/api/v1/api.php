@@ -1,9 +1,12 @@
 <?php
 
+use App\Http\Controllers\Api\V1\AddressController;
 use App\Http\Controllers\Api\V1\AppController;
 use App\Http\Controllers\Api\V1\CartController;
 use App\Http\Controllers\Api\V1\CategoryController;
+use App\Http\Controllers\Api\V1\CheckoutController;
 use App\Http\Controllers\Api\V1\ProductController;
+use App\Http\Controllers\Api\V1\ShippingMethodController;
 use App\Http\Controllers\Api\V1\UserTokenController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -28,6 +31,10 @@ Route::get('categories', [CategoryController::class, 'index']);
 //Get Products
 Route::get('products', [ProductController::class, 'index']);
 
+//Address
+Route::get('address', [AddressController::class, 'index']);
+Route::post('address', [AddressController::class, 'store']);
+
 //Cart
 Route::prefix('cart')->group(function () {
     //Get Cart
@@ -40,8 +47,14 @@ Route::prefix('cart')->group(function () {
     Route::get('calculate', [CartController::class, '']);
 });
 
-//Get shipping
-
 //Checkout
+Route::prefix('checkout')->group(function () {
+    //Do Checkout
+
+    //Do Calculate
+    Route::post('calculate', [CheckoutController::class, 'calculate']);
+    //Get shipping
+    Route::get('shipping-methods', [ShippingMethodController::class, 'index']);
+});
 
 //Order Success

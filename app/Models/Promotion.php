@@ -6,6 +6,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Casts\AsCollection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Cache;
 
 class Promotion extends Model
 {
@@ -26,4 +27,25 @@ class Promotion extends Model
     protected $casts = [
         'product_info' => 'array',
     ];
+
+    protected static function boot()
+    {
+        parent::boot();
+
+        self::created(function () {
+            self::clearCache();
+        });
+        self::updated(function () {
+            self::clearCache();
+        });
+        self::deleted(function () {
+            self::clearCache();
+        });
+
+    }
+
+    public static function clearCache()
+    {
+        Cache::forget('promotions');
+    }
 }

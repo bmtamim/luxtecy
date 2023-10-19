@@ -7,12 +7,13 @@ use App\Models\Cart;
 use App\Models\CartItem;
 use App\Models\Promotion;
 use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Validation\ValidationException;
 
 class CartService
 {
     public ?Cart $cart = null;
     public string $user_token;
-    public ?Collection $cartItems = null;
+    public Collection $cartItems;
     public ?Collection $allPromotions = null;
     public ?Promotion $promotion = null;
     public array $awaited_promotion = [];
@@ -21,15 +22,16 @@ class CartService
     {
         $this->user_token = $user_token;
         $this->initCart();
-        $this->getPromotion();
+        $this->getAllPromotions();
         $this->getPromotion();
         $this->getNearestPromotion();
     }
 
     public function initCart(): void
     {
+        $this->cartItems = Collection::make();
         if ( ! $this->cart) {
-            $this->cart = Cart::query()->where(['user_token' => $this->user_token])->first();
+            $this->cart = Cart::where(['user_token' => $this->user_token])->first();
         }
         if ($this->cart) {
             $this->cartItems = $this->cart->cartItems()->with('product')->get();
@@ -45,19 +47,33 @@ class CartService
         return round($sub_total, 2);
     }
 
+    public function totalQty(): float
+    {
+        $quantity = $this->cartItems->reduce(function (?float $carry, CartItem $item) {
+            return $carry + $item->quantity;
+        });
+
+        return round($quantity, 2);
+    }
+
+    public function cartTotal(): float
+    {
+        return $this->subTotal();
+    }
+
     public function getPromotion(): void
     {
         if ( ! $this->promotion) {
-            $this->promotion = $this->allPromotions->where('min_cart_amount', '<=',
+            $this->promotion = $this->allPromotions?->where('min_cart_amount', '<=',
                 $this->subTotal())->sortByDesc('min_cart_amount')->first();
         }
     }
 
     public function getNearestPromotion(): void
     {
-        $promotion = Promotion::query()->where('min_cart_amount', '>',
-            $this->subTotal())->orderBy('min_cart_amount',
-            'asc')->first();
+        $promotion = $this->allPromotions?->where('min_cart_amount', '>',
+            $this->subTotal())->sortBy('min_cart_amount',
+            SORT_ASC)->first();
         if ($promotion) {
 
             $this->awaited_promotion = [
@@ -73,7 +89,7 @@ class CartService
     public function getAllPromotions(): void
     {
         if ( ! $this->allPromotions) {
-            $this->allPromotions = Promotion::query()->where('is_active', true)->get();
+            $this->allPromotions = PromotionService::getPromotions();
         }
     }
 

@@ -19,6 +19,7 @@ class AppController extends Controller
             'url'      => config('app.url'),
             'is_open'  => OpeningHours::create($business_hours)->isOpen(),
             'timezone' => config('app.timezone'),
+            'currency' => config('app.currency'),
         ];
 
         return jsonResponseFormat(true, $appInfo);
