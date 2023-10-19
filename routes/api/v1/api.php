@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Api\V1\AppController;
+use App\Http\Controllers\Api\V1\CartController;
 use App\Http\Controllers\Api\V1\CategoryController;
 use App\Http\Controllers\Api\V1\ProductController;
 use App\Http\Controllers\Api\V1\UserTokenController;
@@ -26,3 +27,21 @@ Route::get('user-token', UserTokenController::class);
 Route::get('categories', [CategoryController::class, 'index']);
 //Get Products
 Route::get('products', [ProductController::class, 'index']);
+
+//Cart
+Route::prefix('cart')->group(function () {
+    //Get Cart
+    Route::get('data', [CartController::class, 'index']);
+
+    //Add to cart
+    Route::post('add', [CartController::class, 'store']);
+
+    //Calculate Cart
+    Route::get('calculate', [CartController::class, '']);
+});
+
+//Get shipping
+
+//Checkout
+
+//Order Success

@@ -182,11 +182,14 @@ return [
     |
     */
 
-    'aliases'           => Facade::defaultAliases()->merge([
+    'aliases'     => Facade::defaultAliases()->merge([
         // 'Example' => App\Facades\Example::class,
     ])->toArray(),
 
     //Custom
-    'date_format'       => 'd/m/Y H:i',
-    'date_format_human' => 'd F, Y h:i a'
+    'date_format' => 'd/m/Y H:i',
+
+    'date_format_human' => 'd F, Y h:i a',
+
+    'currency' => 'RM',
 ];
