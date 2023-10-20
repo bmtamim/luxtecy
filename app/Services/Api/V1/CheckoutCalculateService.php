@@ -26,10 +26,22 @@ class CheckoutCalculateService
         return [
             'items'             => $this->cart->cartItems,
             'payment'           => $this->preparePaymentData(),
-            'shipping_methods'  => $this->shippingMethods,
+            'shipping_methods'  => $this->prepareShippingMthods(),
             'promotion'         => $this->cart->promotion,
             'awaited_promotion' => $this->cart->awaited_promotion,
         ];
+    }
+
+    private function prepareShippingMthods(): array
+    {
+        return array_map(function ($item) {
+            $newData                 = [];
+            $newData['name']         = $item['name'];
+            $newData['distance']     = $item['distance'] > 0 ? $item['distance'].' kM' : null;
+            $newData['delivery_fee'] = amount_format($item['delivery_fee']);
+
+            return $newData;
+        }, $this->shippingMethods);
     }
 
     private function preparePaymentData(): array
@@ -52,7 +64,8 @@ class CheckoutCalculateService
     public function getPromotionAmount()
     {
         $promotionAmount = 0;
-        $applied_on      = $this->delivery_fee ?? 0;
+        $applied_on      = $this->deliveryFee() ?? 0;
+
 
         //
         if ($this->cart->promotion?->applied_on === PromotionEnum::CART->value) {
@@ -61,7 +74,7 @@ class CheckoutCalculateService
 
         //
         if ($this->cart->promotion?->type === PromotionEnum::FIXED->value) {
-            $promotionAmount = $cart->promotion?->amount ?? 0;
+            $promotionAmount = $this->cart->promotion?->amount ?? 0;
         } elseif ($this->cart->promotion?->type === PromotionEnum::PERCENTAGE->value) {
             $promotionAmount = ($applied_on / 100) * $this->cart->promotion?->amount;
         }
