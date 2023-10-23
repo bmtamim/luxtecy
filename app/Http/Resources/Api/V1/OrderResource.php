@@ -1,8 +1,7 @@
 <?php
 
-namespace App\Http\Resources\Admin\V1;
+namespace App\Http\Resources\Api\V1;
 
-use App\Enums\OrderStatus;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 

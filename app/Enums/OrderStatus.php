@@ -6,7 +6,8 @@ enum OrderStatus: string
 {
     case PENDING = 'pending';
     case PENDING_DELIVERY = 'pending-delivery';
-    case PENDING_PAYMENT = 'pending-payment';
+    case PENDING_PAYMENT = 'payment-pending';
+    case FAILED_PAYMENT = 'payment-failed';
     case CONFIRMED = 'confirmed';
     case COMPLETED = 'completed';
     case ON_HOLD = 'on-hold';
@@ -30,6 +31,7 @@ enum OrderStatus: string
             self::DELIVERED => __('delivered'),
             self::CANCEL => __('cancel'),
             self::COMPLETED => __('Completed'),
+            self::FAILED_PAYMENT => __('Payment Failed'),
         };
     }
 

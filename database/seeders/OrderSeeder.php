@@ -13,8 +13,9 @@ class OrderSeeder extends Seeder
      */
     public function run(): void
     {
-        Order::factory(15000)
+        Order::factory(20000)
              ->has(OrderItem::factory()->count(rand(3, 6)))
              ->create();
+
     }
 }

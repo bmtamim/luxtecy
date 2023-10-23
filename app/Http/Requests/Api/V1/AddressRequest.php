@@ -2,7 +2,9 @@
 
 namespace App\Http\Requests\Api\V1;
 
+use App\Services\Api\V1\PostalCodeService;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class AddressRequest extends FormRequest
 {
@@ -29,7 +31,7 @@ class AddressRequest extends FormRequest
             'address_details' => ['nullable', 'string'],
             'latitude'        => ['nullable', 'string'],
             'longitude'       => ['nullable', 'string'],
-            'postal_code'     => ['nullable', 'string'],
+            'postal_code'     => ['nullable', 'string', Rule::notIn(PostalCodeService::excluded())],
         ];
     }
 }

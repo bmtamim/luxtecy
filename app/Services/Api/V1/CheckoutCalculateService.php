@@ -26,13 +26,13 @@ class CheckoutCalculateService
         return [
             'items'             => $this->cart->cartItems,
             'payment'           => $this->preparePaymentData(),
-            'shipping_methods'  => $this->prepareShippingMthods(),
+            'shipping_methods'  => $this->prepareShippingMethods(),
             'promotion'         => $this->cart->promotion,
             'awaited_promotion' => $this->cart->awaited_promotion,
         ];
     }
 
-    private function prepareShippingMthods(): array
+    private function prepareShippingMethods(): array
     {
         return array_map(function ($item) {
             $newData                 = [];
@@ -100,7 +100,7 @@ class CheckoutCalculateService
         return $total;
     }
 
-    private function deliveryFee()
+    public function deliveryFee()
     {
         $shipping_method = cleanUp($this->request->input('shipping_method'));
         if (

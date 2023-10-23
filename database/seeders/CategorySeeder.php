@@ -19,42 +19,42 @@ class CategorySeeder extends Seeder
         $categories = [
             [
                 'name'      => '汤底',
-                'slug'      => 'category-1',
+                'slug'      => 'soup-base',
                 'thumbnail' => FileUploadService::uploadFile($image)
             ],
             [
                 'name'      => '肉片',
-                'slug'      => 'category-2',
+                'slug'      => 'meatslice',
                 'thumbnail' => FileUploadService::uploadFile($image)
             ],
             [
                 'name'      => '海鲜',
-                'slug'      => 'category-3',
+                'slug'      => 'seafood',
                 'thumbnail' => FileUploadService::uploadFile($image)
             ],
             [
                 'name'      => '丸/滑类',
-                'slug'      => 'category-4',
+                'slug'      => 'balls',
                 'thumbnail' => FileUploadService::uploadFile($image)
             ], [
                 'name'      => '经典火锅菜',
-                'slug'      => 'category-5',
+                'slug'      => 'classic',
                 'thumbnail' => FileUploadService::uploadFile($image)
             ], [
                 'name'      => '蔬菜类',
-                'slug'      => 'category-6',
+                'slug'      => 'vege',
                 'thumbnail' => FileUploadService::uploadFile($image)
             ], [
                 'name'      => '面类',
-                'slug'      => 'category-7',
+                'slug'      => 'noodles',
                 'thumbnail' => FileUploadService::uploadFile($image)
             ], [
                 'name'      => '蘸料',
-                'slug'      => 'category-8',
+                'slug'      => 'sauces',
                 'thumbnail' => FileUploadService::uploadFile($image)
             ], [
                 'name'      => '饮料',
-                'slug'      => 'category-9',
+                'slug'      => 'beverage',
                 'thumbnail' => FileUploadService::uploadFile($image)
             ]
         ];

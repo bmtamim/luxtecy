@@ -15,10 +15,14 @@ class CheckoutCalculateAction
     public function __invoke(CheckoutCalculateRequest $request): JsonResponse
     {
         $user_token = cleanUp($request->input('user_token'));
-        $user_token = cleanUp($request->input('user_token'));
         try {
             //Init Cart
             $cart = new CartService($user_token);
+
+            //Check cart
+            if ( ! $cart->cart || 0 >= count($cart->cartItems)) {
+                return jsonResponseFormat(false, null, __('Cart is empty!'), 500);
+            }
 
             //Get Shipping Charges
             $shippingMethods = ShippingService::getShippingCharges($request, $cart);

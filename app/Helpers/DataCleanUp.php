@@ -15,7 +15,8 @@ if ( ! function_exists('cleanUpArray')) {
     function cleanUpArray(array $array = []): array
     {
         return array_map(function ($item) {
-            if ( ! is_string($item)) {
+
+            if (is_array($item) || is_countable($item) || is_iterable($item)) {
                 return $item;
             }
 

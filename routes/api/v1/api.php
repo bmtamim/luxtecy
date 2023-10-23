@@ -5,6 +5,7 @@ use App\Http\Controllers\Api\V1\AppController;
 use App\Http\Controllers\Api\V1\CartController;
 use App\Http\Controllers\Api\V1\CategoryController;
 use App\Http\Controllers\Api\V1\CheckoutController;
+use App\Http\Controllers\Api\V1\OrderController;
 use App\Http\Controllers\Api\V1\ProductController;
 use App\Http\Controllers\Api\V1\ShippingMethodController;
 use App\Http\Controllers\Api\V1\UserTokenController;
@@ -43,14 +44,14 @@ Route::prefix('cart')->group(function () {
     //Add to cart
     Route::post('add', [CartController::class, 'store']);
 
-    //Calculate Cart
-    Route::get('calculate', [CartController::class, '']);
+    //Add to cart
+    Route::post('update', [CartController::class, 'update']);
 });
 
 //Checkout
 Route::prefix('checkout')->group(function () {
     //Do Checkout
-
+    Route::post('/', [CheckoutController::class, 'store']);
     //Do Calculate
     Route::post('calculate', [CheckoutController::class, 'calculate']);
     //Get shipping
@@ -58,3 +59,4 @@ Route::prefix('checkout')->group(function () {
 });
 
 //Order Success
+Route::get('orders/{id}', OrderController::class);

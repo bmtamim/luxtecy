@@ -21,13 +21,17 @@ return new class extends Migration {
             $table->string('payment_method', 50)->nullable();
             $table->string('payment_status', 25)->nullable();
             $table->string('shipping_method', 100)->nullable();
-            $table->unsignedFloat('shipping_fee')->default(0);
+            $table->unsignedFloat('shipping_fee')->nullable();
             $table->dateTime('delivery_time')->nullable();
+            $table->string('delivery_time_slot', 50)->nullable();
             $table->string('delivery_address', 190)->nullable();
             $table->string('delivery_address_details', 190)->nullable();
             $table->string('delivery_name', 70)->nullable();
             $table->string('delivery_email', 120)->nullable();
             $table->string('delivery_phone', 20)->nullable();
+            $table->string('delivery_latitude', 50)->nullable();
+            $table->string('delivery_longitude', 50)->nullable();
+            $table->string('delivery_postal_code', 50)->nullable();
             $table->timestamps();
         });
     }

@@ -3,7 +3,9 @@
 namespace App\Http\Controllers\Api\V1;
 
 use App\Actions\Api\V1\CartStoreAction;
+use App\Actions\Api\V1\UpdateCartAction;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Admin\V1\CartUpdateRequest;
 use App\Http\Requests\Api\V1\CartStoreRequest;
 use App\Services\Api\V1\CartService;
 use Illuminate\Http\JsonResponse;
@@ -40,9 +42,9 @@ class CartController extends Controller
         return $action($request);
     }
 
-    public function update()
+    public function update(CartUpdateRequest $request, UpdateCartAction $action)
     {
-
+        return $action($request);
     }
 
 }

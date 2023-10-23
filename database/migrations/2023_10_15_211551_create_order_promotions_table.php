@@ -17,6 +17,8 @@ return new class extends Migration {
             $table->string('name', 100);
             $table->string('type', 20);
             $table->unsignedFloat('amount',)->nullable();
+            $table->string('applied_on', 30)->nullable();
+            $table->unsignedFloat('applied_amount', 30)->nullable();
             $table->json('product_info')->nullable();
             $table->timestamps();
         });

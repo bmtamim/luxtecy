@@ -42,7 +42,7 @@ class OrderController extends Controller
     public function show(int $id): JsonResponse
     {
         $order = Order::query()
-                      ->with(['orderItems'])
+                      ->with(['orderItems', 'promotion'])
                       ->findOrFail($id);
 
         return jsonResponseFormat(true, new OrderResource($order));
